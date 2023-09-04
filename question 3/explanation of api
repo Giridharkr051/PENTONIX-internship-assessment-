@@ -1,0 +1,53 @@
+The code defines a Flask application with two APIs:
+
+/api: This API returns the details of an employee by their ENO. The ENO parameter is passed in the request URL as a query parameter.
+/api/employeesByDname: This API returns a list of employees in a particular department. The DNAME parameter is passed in the request URL as a query parameter.
+The first API is defined by the following code:
+
+@app.route('/api', methods=['GET'])
+def get_employee_by_ENO():
+    try:
+        ENO = int(request.args.get('ENO'))
+        if not ENO:
+            raise ValueError('ENO parameter is required')
+
+        employee = next((emp for emp in employees if emp["ENO"] == ENO), None)
+        if not employee:
+            raise ValueError(f'Employee with ENO {ENO} not found')
+
+        return jsonify(employee)
+    except Exception as e:
+        return jsonify(error=str(e)), 400
+The @app.route()decorator defines the URL route for the API. The methodsargument specifies that the API can only be accessed using the GETmethod.
+
+The get_employee_by_ENO()function is the handler for the API. The function first tries to get the ENO parameter from the request URL. If the parameter is not present, the function raises an ValueErrorexception.
+
+Next, the function uses a forloop to iterate through the employeeslist. The employeeslist is a list of employee records. For each employee record, the function checks if the ENO of the record matches the ENO parameter. If the ENO matches, the function returns the employee record.
+
+If the ENO parameter does not match any of the employee records, the function raises an ValueErrorexception.
+
+The second API is defined by the following code:
+
+@app.route('/api/employeesByDname', methods=['GET'])
+def get_employees_by_DNAME():
+    try:
+        DNAME = request.args.get('DNAME')
+        if not DNAME:
+            raise ValueError('DNAME parameter is required')
+
+        filtered_employees = [emp for emp in employees if departments.get(emp["DNO"]) == DNAME]
+        if not filtered_employees:
+            raise ValueError(f'No employees found in department with DNAME {DNAME}')
+
+        return jsonify(filtered_employees)
+    except Exception as e:
+        return jsonify(error=str(e)), 400
+The @app.route()decorator defines the URL route for the API. The methodsargument specifies that the API can only be accessed using the GETmethod.
+
+The get_employees_by_DNAME()function is the handler for the API. The function first tries to get the DNAME parameter from the request URL. If the parameter is not present, the function raises an ValueErrorexception.
+
+Next, the function uses a forloop to iterate through the employeeslist. The employeeslist is a list of employee records. For each employee record, the function checks if the department name of the record matches the DNAME parameter. If the department names match, the function adds the employee record to a list of filtered employees.
+
+If the DNAME parameter does not match any of the department names of the employee records, the function returns an empty list.
+
+Finally, the function returns the list of filtered employees as JSON.
