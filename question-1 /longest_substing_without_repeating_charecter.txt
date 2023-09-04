@@ -1,0 +1,28 @@
+this question  can be solved using the sliding window technique.
+* here i have used the two poiters to traverse the string and find the length of the longest substring in the given string
+* it takes the time complexity of O(n) and space complexity of O(n)
+* explanation of how the code works:
+
+-The charsetset is used to keep track of the characters that have already been seen in the substring.
+-The lvariable keeps track of the leftmost index of the substring.
+-The resvariable stores the length of the longest substring found so far.
+-For each character rin the string:
+  -If ris already in the charset, remove the leftmost character s[l]from the charsetand increment l.
+  -Add rto the charset.
+  -Update resto the maximum of resand r - l + 1.
+-The final value of resis the length of the longest substring without repeated characters.
+
+
+def length_of_long_sub(s):
+    charset=set()
+    l=0
+    res=0
+    
+    for r in range(len(s)):
+        while s[r] in charset:
+            charset.remove(s[l])
+            l+=1 
+        charset.add(s[r])
+        res=max(res,r-l+1)
+    return res
+print(length_of_long_sub("abcabcdd"))
