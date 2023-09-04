@@ -1,53 +1,53 @@
-The code defines a Flask application with two APIs:
+The code defines a Flask utility with  APIs:
 
-/api: This API returns the details of an employee by their ENO. The ENO parameter is passed in the request URL as a query parameter.
-/api/employeesByDname: This API returns a list of employees in a particular department. The DNAME parameter is passed in the request URL as a query parameter.
-The first API is defined by the following code:
+/api: This API returns the info of an worker by way of their ENO. The ENO parameter is surpassed inside the request URL as a query parameter.
+/api/employeesByDname: This API returns a list of personnel in a selected branch. The DNAME parameter is surpassed in the request URL as a query parameter.
+The primary API is described via the following code:
 
-@app.route('/api', methods=['GET'])
-def get_employee_by_ENO():
-    try:
-        ENO = int(request.args.get('ENO'))
+@app.Path('/api', strategies=['GET'])
+Def get_employee_by_ENO():
+    attempt:
+        ENO = int(request.Args.Get('ENO'))
         if not ENO:
-            raise ValueError('ENO parameter is required')
+            boost ValueError('ENO parameter is needed')
 
-        employee = next((emp for emp in employees if emp["ENO"] == ENO), None)
-        if not employee:
-            raise ValueError(f'Employee with ENO {ENO} not found')
+        employee = subsequent((emp for emp in employees if emp["ENO"] == ENO), None)
+        if now not employee:
+            improve ValueError(f'worker with ENO ENO now not determined')
 
-        return jsonify(employee)
+        go back jsonify(worker)
     except Exception as e:
-        return jsonify(error=str(e)), 400
-The @app.route()decorator defines the URL route for the API. The methodsargument specifies that the API can only be accessed using the GETmethod.
+        go back jsonify(error=str(e)), four hundred
+The @app.Course()decorator defines the URL route for the API. The methodsargument specifies that the API can only be accessed the use of the GETmethod.
 
-The get_employee_by_ENO()function is the handler for the API. The function first tries to get the ENO parameter from the request URL. If the parameter is not present, the function raises an ValueErrorexception.
+The get_employee_by_ENO()feature is the handler for the API. The characteristic first attempts to get the ENO parameter from the request URL. If the parameter isn't present, the feature increases an ValueErrorexception.
 
-Next, the function uses a forloop to iterate through the employeeslist. The employeeslist is a list of employee records. For each employee record, the function checks if the ENO of the record matches the ENO parameter. If the ENO matches, the function returns the employee record.
+Next, the function makes use of a forloop to iterate through the employeeslist. The employeeslist is a list of employee information. For every employee record, the characteristic checks if the ENO of the document fits the ENO parameter. If the ENO suits, the feature returns the worker document.
 
-If the ENO parameter does not match any of the employee records, the function raises an ValueErrorexception.
+If the ENO parameter does no longer fit any of the employee statistics, the characteristic increases an ValueErrorexception.
 
-The second API is defined by the following code:
+The second API is defined by way of the subsequent code:
 
-@app.route('/api/employeesByDname', methods=['GET'])
-def get_employees_by_DNAME():
+@app.Route('/api/employeesByDname', techniques=['GET'])
+Def get_employees_by_DNAME():
     try:
-        DNAME = request.args.get('DNAME')
+        DNAME = request.Args.Get('DNAME')
         if not DNAME:
-            raise ValueError('DNAME parameter is required')
+            increase ValueError('DNAME parameter is needed')
 
-        filtered_employees = [emp for emp in employees if departments.get(emp["DNO"]) == DNAME]
-        if not filtered_employees:
-            raise ValueError(f'No employees found in department with DNAME {DNAME}')
+        filtered_employees = [emp for emp in personnel if departments.Get(emp["DNO"]) == DNAME]
+        if no longer filtered_employees:
+            boost ValueError(f'No personnel discovered in branch with DNAME DNAME')
 
         return jsonify(filtered_employees)
-    except Exception as e:
-        return jsonify(error=str(e)), 400
-The @app.route()decorator defines the URL route for the API. The methodsargument specifies that the API can only be accessed using the GETmethod.
+    besides Exception as e:
+        go back jsonify(mistakes=str(e)), four hundred
+The @app.Path()decorator defines the URL route for the API. The methodsargument specifies that the API can only be accessed using the GETmethod.
 
-The get_employees_by_DNAME()function is the handler for the API. The function first tries to get the DNAME parameter from the request URL. If the parameter is not present, the function raises an ValueErrorexception.
+The get_employees_by_DNAME()characteristic is the handler for the API. The feature first attempts to get the DNAME parameter from the request URL. If the parameter isn't present, the characteristic raises an ValueErrorexception.
 
-Next, the function uses a forloop to iterate through the employeeslist. The employeeslist is a list of employee records. For each employee record, the function checks if the department name of the record matches the DNAME parameter. If the department names match, the function adds the employee record to a list of filtered employees.
+Next, the feature uses a forloop to iterate through the employeeslist. The employeeslist is a list of employee records. For each employee document, the function assessments if the department call of the file matches the DNAME parameter. If the branch names match, the function provides the employee document to a listing of filtered personnel.
 
-If the DNAME parameter does not match any of the department names of the employee records, the function returns an empty list.
+If the DNAME parameter does not match any of the branch names of the employee statistics, the feature returns an empty listing.
 
-Finally, the function returns the list of filtered employees as JSON.
+Ultimately, the characteristic returns the list of filtered personnel as JSON.
