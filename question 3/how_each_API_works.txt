@@ -1,0 +1,9 @@
+Here's how each API works:
+
+The first API (/api) takes an ENO parameter from the query string, searches for an employee with that ENO in the employees array, and returns the employee details if found.
+
+The second API (/api/employeesByDname) takes a DNAME parameter from the query string, filters the employees array to find employees in the specified department, and returns a list of matching employees.
+
+Both APIs handle exceptions and provide error responses when necessary. They are also type-safe by parsing input parameters into integers to ensure that they match the expected data types.
+
+You can run this Node.js application, and it will serve these two APIs on port 9000. You can then use a tool like Postman to test the APIs by making HTTP requests to endpoints like http://localhost:9000/api?ENO=1 and http://localhost:9000/api/employeesByDname?DNAME=10, where you can replace the parameter values as needed for testing.
