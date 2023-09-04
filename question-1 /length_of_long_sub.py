@@ -9,6 +9,6 @@ def length_of_long_sub(s):
             charset.remove(s[l])
             l+=1 
         charset.add(s[r])
-        res=max(res,r-l+1)
+        res=max(res,r-l)
     return res
 print(length_of_long_sub("abcabcdd"))
